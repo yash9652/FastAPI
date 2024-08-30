@@ -1,0 +1,108 @@
+Authentication :-
+
+For Hashing the password required 2 more Lib 
+1.passlib
+2.bcrypt 4.0.1
+
+
+sqlite3 todosapp.db :- To execute commands from shell
+
+
+for token authorization
+
+pip install python-multipart
+
+JWT - JSON Web Token :- Is a self contained way to securely transmit data and information between two parties using JSON object, Digitally signed and used when dealing with authorization , great way for information exchange between server and client 
+
+Header :- 2 parts(algorithm(alg) and type of token(typ)),encoded using base64 encoding 
+
+payload :- Actual Data , It have 3 claims (Registered ,Public ,Private) 
+1.Register :- ES,SUB,EXP
+
+Signature :- Signature is created by using the algorithm in the header to hash out encoded header, encoded payload with a secret. saved in the server where clients don't have access 
+
+https://jwt.io :- To get the encoded and decoded JWT 
+
+pip install "python-jose[cryptography]" :- To return a JWT token 
+
+
+openssl rand -hex 32 :- To get an 32 bit length key
+
+
+
+
+Production Database:-
+1.MySQL
+2.PostgreSQL
+SQLite3 runs in memory or local disk, Production DBMS runs on the own server and port
+
+
+Installing one Library for postgresql
+pip install psycopg2-binary 
+
+Installing one Library for MySQL
+pip install pymysql
+
+
+
+Alembic :-
+Lightweight database tool for when using SQLALCHEMY
+Alembic allows us to plan ,transfer and upgrade resources within databases
+Alembic allows you to change a SQLALCHEMY database table after it has been created
+Currently SQLAlchemy will only create new tables for us not enhance any
+
+
+installing :- pip install alembic
+alembic init :- initialize a new generic environment
+alembic revision -m "message"  :- creates a new revision of environment
+alembic upgrade <revision> :- upgrade revisions
+alembic downgrade <revision>
+
+
+After we initialize our project with alembic two new items will appear in our directory
+1.alembic.ini :- configuration information
+2.alembic directory :- all the revisions of our dict
+
+
+Alembic Revisions :-
+
+alembic revision is how we create a new alembic file where we can add some type of database upgrade
+
+alembic revision -m "create phone number col on users table"  :- when we execute this a new file will be created each will have new id
+
+
+Alembic upgrade :-
+alembic upgrade is how we actually runs the migration
+
+def upgrade() ->None:
+	op.add_column('users',sa.Column("phone_number",sa.String(),nullable=True)) 
+enhances the data,previous data won't change
+
+
+Alembic downgrade :-
+To revert a migration
+
+def downgrade() -> None:
+	op.drop_column('users','phone_number')
+
+
+
+
+Jinga :-
+
+1.Fast, Extensible template language
+2.Jinga tags allows developers to be confident while working with backend data using tags that are similar to HTML
+<link rel="stylesheet" type = "text/css" href = "{{ url_for('static', path = 'todo/css/base.css')}}"></link>
+
+context : {
+'todos':todo_list   :- Backend context
+}
+
+{% for todo in todos%}
+Do some thing with todos      :- Front end
+{% endfor %}
+
+
+install some dependencies
+ 1. pip install aiofiles
+ 2. pip install jinja2
